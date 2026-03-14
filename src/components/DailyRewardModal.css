@@ -1,0 +1,82 @@
+.reward-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.reward-modal {
+  background: #1a1a2e;
+  border: 3px solid #ffcc02;
+  border-radius: 20px;
+  padding: 36px 32px;
+  width: 360px;
+  max-width: 95vw;
+  text-align: center;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.reward-stars {
+  font-size: 1.8rem;
+}
+
+.reward-title {
+  font-size: 1.6rem;
+  color: #ffcc02;
+  margin: 0;
+}
+
+.reward-streak {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.reward-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.reward-item {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.streak-bonus-msg {
+  font-size: 0.8rem;
+  color: #ffb74d;
+}
+
+.reward-btn {
+  background: #e94560;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.reward-btn:hover {
+  background: #c73652;
+}

@@ -1,0 +1,178 @@
+.profile-screen {
+  min-height: 100vh;
+  background: #0d0d1a;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  padding: 16px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.profile-avatar {
+  font-size: 3rem;
+}
+
+.profile-name {
+  font-size: 1.4rem;
+  margin: 0 0 2px;
+  color: #e94560;
+}
+
+.profile-rank {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin: 0;
+}
+
+.profile-card {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: #777;
+  margin: 4px 0 0;
+  text-align: right;
+}
+
+.xp-bar-wrap {
+  height: 10px;
+  background: #333;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #e94560, #ffcc02);
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.stat-box {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.stat-val {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #e94560;
+}
+
+.stat-key {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.world-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.streak-count {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.reset-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  background: #1a1a2e;
+  border: 2px solid #555;
+  border-radius: 10px;
+  color: #888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.reset-btn:hover {
+  border-color: #e94560;
+  color: #e94560;
+}
+
+/* ── Grade level selector ────────────────────────────── */
+.grade-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.grade-row + .grade-row {
+  border-top: 1px solid #0f3460;
+}
+
+.grade-subject {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.grade-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.grade-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #0f3460;
+  background: #1a1a2e;
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.grade-pill:hover {
+  border-color: #e94560;
+  color: #e94560;
+}
+
+.grade-pill.active {
+  background: #e94560;
+  border-color: #e94560;
+  color: #fff;
+}

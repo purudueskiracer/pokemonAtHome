@@ -1,0 +1,304 @@
+/* ══════════════════════════════════════════════════════════════════════
+   Question Format Styles — base + visual formats
+   Shared across all question sub-components (MC, TF, picture, audio, etc.).
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Entrance animation ────────────────────────────────────────────── */
+@keyframes question-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Base question prompt ──────────────────────────────────────────── */
+.question-prompt {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  background: rgba(22, 33, 62, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 24px 28px;
+  border-radius: 16px;
+  border-left: 4px solid #e94560;
+  animation: question-enter 0.4s ease 0.1s both;
+}
+
+/* ── Answer grid ───────────────────────────────────────────────────── */
+.answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  animation: question-enter 0.4s ease 0.2s both;
+}
+
+.answers-grid.tf-grid {
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Answer buttons ────────────────────────────────────────────────── */
+.answer-btn {
+  background: rgba(22, 33, 62, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 2px solid #0f3460;
+  border-radius: 14px;
+  color: white;
+  padding: 20px 24px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.answer-btn:hover:not(:disabled) {
+  border-color: #e94560;
+  background: #0f3460;
+  transform: scale(1.02);
+}
+
+.answer-btn:active:not(:disabled) { transform: scale(0.98); }
+
+.answer-btn.correct {
+  background: #1b5e20;
+  border-color: #4caf50;
+}
+
+.answer-btn.wrong {
+  background: #b71c1c;
+  border-color: #f44336;
+}
+
+/* ── Picture → Word ────────────────────────────────────────────────── */
+.picture-word-image-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+  animation: question-enter 0.4s ease 0.05s both;
+}
+
+.picture-word-image {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 16px;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
+}
+
+.picture-word-placeholder {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+}
+
+/* ── Word → Picture ────────────────────────────────────────────────── */
+.word-picture-prompt {
+  font-size: 1.8rem !important;
+}
+
+.image-grid {
+  gap: 16px !important;
+}
+
+.image-answer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px !important;
+  min-height: 140px;
+}
+
+.image-answer-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.image-answer-placeholder {
+  font-size: 3rem;
+}
+
+/* ── Audio → Word ──────────────────────────────────────────────────── */
+.audio-word-speaker-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  animation: question-enter 0.4s ease 0.05s both;
+}
+
+.audio-play-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(22, 33, 62, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 2px solid #0f3460;
+  border-radius: 20px;
+  padding: 24px 40px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  color: white;
+}
+
+.audio-play-btn:hover {
+  border-color: #e94560;
+  background: rgba(15, 52, 96, 0.9);
+  transform: scale(1.04);
+}
+
+.audio-play-btn:active {
+  transform: scale(0.96);
+}
+
+.audio-play-icon {
+  font-size: 3.5rem;
+  animation: speaker-pulse 2s ease-in-out infinite;
+}
+
+@keyframes speaker-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.1); }
+}
+
+.audio-play-label {
+  font-size: 0.95rem;
+  color: #b0bec5;
+}
+
+/* ── Count Objects ─────────────────────────────────────────────────── */
+.count-objects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 8px;
+  animation: question-enter 0.4s ease 0.05s both;
+}
+
+.count-object {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.count-object-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.count-object-emoji {
+  font-size: 2.4rem;
+}
+
+/* ── Missing Letter ────────────────────────────────────────────────── */
+.missing-letter-image-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  animation: question-enter 0.4s ease 0.05s both;
+}
+
+.missing-letter-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 12px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.missing-letter-prompt {
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 6px;
+  font-size: 2.8rem !important;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.missing-letter-blank {
+  color: #e94560;
+  border-bottom: 4px solid #e94560;
+  min-width: 32px;
+  text-align: center;
+}
+
+.missing-letter-char {
+  color: #fff;
+}
+
+.missing-letter-grid {
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.missing-letter-btn {
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  font-family: monospace;
+  text-transform: lowercase;
+}
+
+/* ── Mobile tweaks for visual formats ────────────────────────────── */
+@media (max-width: 480px) {
+  .picture-word-image {
+    width: 160px;
+    height: 160px;
+  }
+  .image-answer-btn {
+    min-height: 110px;
+  }
+  .image-answer-img {
+    width: 72px;
+    height: 72px;
+  }
+  .count-object {
+    width: 52px;
+    height: 52px;
+  }
+  .count-object-img {
+    width: 44px;
+    height: 44px;
+  }
+  .count-object-emoji {
+    font-size: 1.8rem;
+  }
+  .missing-letter-prompt {
+    font-size: 2.2rem !important;
+  }
+  .missing-letter-image {
+    width: 120px;
+    height: 120px;
+  }
+  .missing-letter-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  .image-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Base question overrides (moved from EncounterModal.css) */
+  .question-prompt { font-size: 1.25rem; padding: 18px; }
+  .answer-btn { padding: 16px 14px; font-size: 1.05rem; }
+  .answers-grid { grid-template-columns: 1fr; }
+  .answers-grid.tf-grid { grid-template-columns: 1fr 1fr; }
+}

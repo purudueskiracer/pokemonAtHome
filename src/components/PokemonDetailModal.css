@@ -1,0 +1,312 @@
+/* ═══════════════════════════════════════════════════════════════════
+   PokemonDetailModal — immersive full-screen 3D viewer
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Full-screen container */
+.detail-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #0a0a14;
+  animation: detailFadeIn 0.2s ease-out;
+}
+
+@keyframes detailFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 3D canvas fills the entire viewport */
+.detail-canvas-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Top bar: name + close ───────────────────────────────────────── */
+.detail-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(10,10,20,0.85) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.detail-topbar > * {
+  pointer-events: auto;
+}
+
+.detail-topbar-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.detail-name {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  text-transform: capitalize;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.detail-id {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Close button */
+.detail-close {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #444;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #ccc;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.detail-close:hover {
+  background: #e94560;
+  border-color: #e94560;
+  color: white;
+}
+
+/* Badges */
+.detail-badge {
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: white;
+  line-height: 1;
+}
+
+.detail-badge.shiny   { background: linear-gradient(135deg, #f9c846, #ff7043); }
+.detail-badge.alolan  { background: #42a5f5; }
+.detail-badge.galar   { background: #ab47bc; }
+.detail-badge.hisuian { background: #ff7043; }
+.detail-badge.mega    { background: linear-gradient(135deg, #e94560, #a020f0); }
+
+/* ── Hint text ───────────────────────────────────────────────────── */
+.detail-hint {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #444;
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+}
+
+/* ── Zoom +/- buttons ────────────────────────────────────────────── */
+.detail-zoom-controls {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-zoom-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  background: rgba(13, 13, 26, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ccc;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+  user-select: none;
+}
+
+.detail-zoom-btn:hover {
+  background: rgba(22, 33, 62, 0.9);
+  border-color: #0f3460;
+  color: white;
+}
+
+.detail-zoom-btn:active {
+  transform: scale(0.92);
+}
+
+/* ── Stats toggle button ─────────────────────────────────────────── */
+.detail-toggle-stats {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;
+  background: rgba(22, 33, 62, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #0f3460;
+  border-radius: 20px;
+  color: #aaa;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.detail-toggle-stats.open {
+  bottom: 230px; /* sits right above the stats panel */
+}
+
+.detail-toggle-stats:hover {
+  background: rgba(28, 42, 78, 0.95);
+  color: white;
+}
+
+/* ── Stats panel (slides up from bottom) ─────────────────────────── */
+.detail-stats-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  background: rgba(13, 13, 26, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid #0f3460;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 220px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.detail-stats-panel.visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Type + rarity */
+.detail-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.detail-type {
+  font-size: 0.75rem;
+  padding: 3px 12px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.detail-rarity {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+/* Stars */
+.detail-stars {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.detail-stars.stars-4 { color: #ff8a65; text-shadow: 0 0 8px rgba(255,138,101,0.5); }
+.detail-stars.stars-3 { color: #ffd54f; }
+.detail-stars.stars-2 { color: #81c784; }
+.detail-stars.stars-1 { color: #90a4ae; }
+.detail-stars.stars-0 { color: #555; }
+
+/* IV bars */
+.detail-ivs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-iv-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-iv-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  width: 30px;
+  text-align: right;
+  font-family: monospace;
+}
+
+.detail-iv-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #1a1a2e;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #222;
+}
+
+.detail-iv-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.detail-iv-value {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  width: 20px;
+  text-align: left;
+  font-family: monospace;
+}
+
+/* Caught date */
+.detail-caught-date {
+  font-size: 0.7rem;
+  color: #555;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* ── Responsive: taller stats on large screens ───────────────────── */
+@media (min-height: 700px) {
+  .detail-stats-panel {
+    max-height: 260px;
+  }
+  .detail-toggle-stats.open {
+    bottom: 270px;
+  }
+}

@@ -1,0 +1,11 @@
+.game-screen {
+  position: fixed;
+  inset: 0;
+  background: #0d0d1a;
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}

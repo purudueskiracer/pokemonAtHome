@@ -1,0 +1,414 @@
+/* ══════════════════════════════════════════════════════════════════════
+   CardsScreen — dark game aesthetic, mobile-first
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+.cards-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: #1a1a2e;
+  color: #e2e8f0;
+  font-family: "Segoe UI", sans-serif;
+  overflow-y: auto;
+  padding-bottom: 80px; /* clearance for BottomNav */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Header ──────────────────────────────────────────────────────── */
+.cards-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #1a1a2e;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.cards-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.pending-count-badge {
+  background: #f59e0b;
+  color: #1a1a2e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* ── Pending reveal section ──────────────────────────────────────── */
+.pending-section {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.pending-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.pending-strip {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.open-next-btn {
+  margin-top: 4px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.open-next-btn:hover  { background: #2563eb; }
+.open-next-btn:active { transform: scale(0.96); }
+
+/* ── Empty state ─────────────────────────────────────────────────── */
+.cards-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 8px;
+  text-align: center;
+}
+
+.cards-empty-icon     { font-size: 3rem; margin: 0; }
+.cards-empty-title    { font-size: 1.1rem; font-weight: 700; margin: 0; color: #f8fafc; }
+.cards-empty-subtitle { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+/* ── Collection section ──────────────────────────────────────────── */
+.collection-section {
+  padding: 12px 12px 0;
+}
+
+/* Filter pills */
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.filter-row::-webkit-scrollbar { display: none; }
+
+.filter-pill {
+  flex-shrink: 0;
+  background: #16213e;
+  color: #94a3b8;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.filter-pill:hover {
+  background: #0f3460;
+  color: #e2e8f0;
+}
+
+.filter-pill.active {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+/* Sort buttons */
+.sort-row {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.sort-btn {
+  flex-shrink: 0;
+  background: transparent;
+  color: #64748b;
+  border: none;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sort-btn.active {
+  color: #f59e0b;
+  border-bottom-color: #f59e0b;
+}
+
+/* Collection grid */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* ── Set / Pokémon group (shown when sortBy === 'set' or 'pokemon') ── */
+.set-group {
+  margin-bottom: 20px;
+}
+
+.set-group-header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 0 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 8px;
+}
+
+.set-group-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.set-group-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.set-group-year {
+  font-size: 0.72rem;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+/* Progress row */
+.set-group-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.set-group-fraction {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #f59e0b;
+  flex-shrink: 0;
+  min-width: 44px;
+}
+
+.set-group-total {
+  font-weight: 400;
+  color: #64748b;
+}
+
+/* Progress bar track */
+.set-group-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.set-group-bar-fill {
+  height: 100%;
+  background: #f59e0b;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.no-results-text {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  padding: 32px 0;
+}
+
+/* ── Card tile ───────────────────────────────────────────────────── */
+.card-tile {
+  position: relative;
+  background: #16213e;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.card-tile:active { transform: scale(0.96); }
+
+.card-tile img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  display: block;
+}
+
+.card-tile-name {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Rarity badge — top-right */
+.rarity-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+/* Rarity colors */
+.rarity-badge--common    { background: #6b7280; color: #fff; }
+.rarity-badge--uncommon  { background: #22c55e; color: #fff; }
+.rarity-badge--rare      { background: #3b82f6; color: #fff; }
+.rarity-badge--legendary { background: #f59e0b; color: #1a1a2e; }
+
+/* Quantity badge — bottom-left */
+.quantity-badge {
+  position: absolute;
+  bottom: 28px;
+  left: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: #f59e0b;
+  color: #1a1a2e;
+  border-radius: 999px;
+  padding: 1px 6px;
+  line-height: 1.4;
+}
+
+/* ── Detail modal ────────────────────────────────────────────────── */
+.card-detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card-detail {
+  position: relative;
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 16px;
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  animation: detail-pop-in 0.2s ease-out;
+}
+
+@keyframes detail-pop-in {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.card-detail-img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+.card-detail-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.card-detail-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.card-detail-set {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Rarity badge inside detail modal — not absolute positioned */
+.card-detail .rarity-badge {
+  position: static;
+  display: inline-block;
+}
+
+.card-detail-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #e2e8f0;
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.card-detail-close:hover { background: rgba(255,255,255,0.2); }

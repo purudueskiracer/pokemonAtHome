@@ -1,0 +1,201 @@
+.mart-screen {
+  min-height: 100vh;
+  background: #0d0d1a;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  padding: 16px;
+}
+
+.mart-header {
+  margin-bottom: 16px;
+}
+
+.mart-header h2 {
+  font-size: 1.5rem;
+  color: #e94560;
+  margin: 0 0 4px;
+}
+
+.mart-subtitle {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.mart-inventory {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.inventory-label {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.inventory-balls {
+  display: flex;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.purchase-success {
+  background: #1b5e20;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  color: #81c784;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Shelf items */
+.mart-shelves {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mart-item {
+  background: #1a1a2e;
+  border: 2px solid #0f3460;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.15s;
+}
+
+.mart-item:not(.disabled):hover {
+  border-color: #e94560;
+}
+
+.mart-item.disabled {
+  opacity: 0.45;
+}
+
+.mart-item-icon {
+  font-size: 2rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.mart-item-info {
+  flex: 1;
+}
+
+.mart-item-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.mart-item-desc {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.mart-item-cost {
+  font-size: 0.75rem;
+  color: #64b5f6;
+  margin-top: 2px;
+}
+
+.daily-limit {
+  color: #ffcc02;
+}
+
+.mart-buy-btn {
+  background: #e94560;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 56px;
+  transition: background 0.15s;
+}
+
+.mart-buy-btn:hover:not(:disabled) {
+  background: #c73652;
+}
+
+.mart-buy-btn:disabled {
+  background: #444;
+  cursor: not-allowed;
+}
+
+/* Active purchase UI */
+.mart-purchase {
+  background: #1a1a2e;
+  border: 2px solid #e94560;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.purchase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.purchase-icon {
+  font-size: 2rem;
+}
+
+.purchase-label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.purchase-desc {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.purchase-cancel {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.purchase-cancel:hover { color: white; }
+
+.purchase-progress-wrap {
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.purchase-progress-fill {
+  height: 100%;
+  background: #4caf50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.purchase-counter {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-align: center;
+}

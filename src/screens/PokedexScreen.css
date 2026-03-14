@@ -1,0 +1,481 @@
+.pokedex-screen {
+  min-height: 100vh;
+  background: #0d0d1a;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  padding: 16px;
+}
+
+/* ── Top-level tabs (Pokédex / Collection) ──────────────────────── */
+.top-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #0f3460;
+}
+
+.top-tab {
+  flex: 1;
+  background: #16213e;
+  border: none;
+  color: #aaa;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.top-tab.active {
+  background: #e94560;
+  color: white;
+}
+
+.tab-count {
+  font-size: 0.75rem;
+  background: rgba(255,255,255,0.15);
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 4px;
+}
+
+/* ── Pokédex header ─────────────────────────────────────────────── */
+.pokedex-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pokedex-header h2 {
+  font-size: 1.5rem;
+  color: #e94560;
+}
+
+.pokedex-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.progress-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #e94560;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* ── Filter / sort tabs ─────────────────────────────────────────── */
+.filter-tabs, .sort-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-tab, .sort-tab {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 20px;
+  color: #aaa;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-tab.active, .sort-tab.active {
+  background: #e94560;
+  border-color: #e94560;
+  color: white;
+}
+
+/* ── Pokédex grid ───────────────────────────────────────────────── */
+.pokedex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.pokedex-card {
+  background: #1a1a2e;
+  border: 2px solid #0f3460;
+  border-radius: 12px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.pokedex-card.caught { border-color: #e94560; }
+.pokedex-card.caught:hover { transform: scale(1.05); border-color: #ffcc02; }
+
+.card-number {
+  font-size: 0.65rem;
+  color: #666;
+  align-self: flex-start;
+}
+
+.card-sprite {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.card-silhouette {
+  width: 64px;
+  height: 64px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #333;
+  border: 2px dashed #333;
+}
+
+.card-name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  text-transform: capitalize;
+}
+
+.pokedex-card.unseen .card-name { color: #555; }
+
+.card-type {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.card-rarity {
+  font-size: 0.6rem;
+  text-transform: capitalize;
+  color: #aaa;
+}
+
+.rarity-common   { color: #aaa; }
+.rarity-uncommon { color: #64b5f6; }
+.rarity-rare     { color: #ce93d8; }
+.rarity-legendary{ color: #ffb74d; }
+
+.empty-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  font-size: 0.95rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   COLLECTION TAB
+   ════════════════════════════════════════════════════════════════════ */
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.col-total {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+/* ── Individual collection card ─────────────────────────────────── */
+.collection-card {
+  background: #1a1a2e;
+  border: 2px solid #0f3460;
+  border-radius: 14px;
+  padding: 10px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.collection-card:hover {
+  transform: scale(1.04);
+  border-color: #e94560;
+}
+
+.collection-card.shiny {
+  border-color: #ffd54f;
+  box-shadow: 0 0 12px rgba(255, 213, 79, 0.25);
+}
+
+.collection-card.hundo {
+  border-color: #ff8a65;
+  box-shadow: 0 0 14px rgba(255, 138, 101, 0.3);
+}
+
+.collection-card.shiny.hundo {
+  border-color: #ffd54f;
+  box-shadow: 0 0 14px rgba(255, 213, 79, 0.35), 0 0 20px rgba(255, 138, 101, 0.2);
+}
+
+/* Top row: fav + badges */
+.col-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 20px;
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.fav-btn.active, .fav-btn:hover { opacity: 1; }
+
+.col-badges {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.badge-shiny { font-size: 0.85rem; }
+
+.badge-region {
+  font-size: 0.55rem;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: white;
+}
+
+.badge-region.alolan  { background: #42a5f5; }
+.badge-region.galar   { background: #ab47bc; }
+.badge-region.hisuian { background: #ff7043; }
+
+.badge-mega {
+  font-size: 0.55rem;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #e94560, #a020f0);
+  color: white;
+}
+
+/* Star rating */
+.col-stars {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.col-stars.stars-4 { color: #ff8a65; text-shadow: 0 0 6px rgba(255,138,101,0.5); }
+.col-stars.stars-3 { color: #ffd54f; }
+.col-stars.stars-2 { color: #81c784; }
+.col-stars.stars-1 { color: #90a4ae; }
+.col-stars.stars-0 { color: #555; }
+
+/* IV mini-display */
+.col-ivs {
+  display: flex;
+  gap: 8px;
+  font-size: 0.65rem;
+  color: #888;
+}
+
+.col-ivs span {
+  font-family: monospace;
+}
+
+/* Meta row (type + rarity) */
+.col-meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Candy */
+.col-candy {
+  font-size: 0.75rem;
+  color: #f48fb1;
+}
+
+/* Actions */
+.col-actions {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.transfer-btn, .mega-btn, .evolve-btn {
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.15s;
+}
+
+.transfer-btn {
+  background: #263238;
+  border-color: #455a64;
+  color: #b0bec5;
+}
+
+.transfer-btn:hover {
+  background: #37474f;
+  border-color: #78909c;
+  color: white;
+}
+
+.mega-btn {
+  background: linear-gradient(135deg, #4a148c, #e94560);
+  border-color: #e94560;
+  color: white;
+}
+
+.mega-btn:hover {
+  filter: brightness(1.15);
+}
+
+.evolve-btn {
+  background: #1b3a1b;
+  border-color: #4caf50;
+  color: #81c784;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.evolve-btn.ready {
+  opacity: 1;
+  cursor: pointer;
+  background: #2e7d32;
+  border-color: #66bb6a;
+  color: white;
+}
+
+.evolve-btn.ready:hover {
+  filter: brightness(1.15);
+}
+
+/* ── Confirmation Modal (replaces window.confirm) ──────────────── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.confirm-card {
+  background: #1a1a2e;
+  border: 2px solid #0f3460;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+}
+
+.confirm-msg {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.confirm-detail {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirm-yes,
+.confirm-no {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.confirm-yes {
+  background: #e94560;
+  color: white;
+}
+
+.confirm-no {
+  background: #333;
+  color: #ccc;
+}
+
+/* ── Action Toast (replaces window.alert) ──────────────────────── */
+.action-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  border: 2px solid #e94560;
+  border-radius: 12px;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 600;
+  z-index: 10000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}

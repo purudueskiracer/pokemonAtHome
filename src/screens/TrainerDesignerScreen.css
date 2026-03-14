@@ -1,0 +1,145 @@
+/* Trainer Designer Screen — full-screen overlay with 3D preview + swatch pickers */
+
+.trainer-designer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* Slide up from bottom on mobile */
+  animation: td-slide-up 0.25s ease;
+}
+
+@keyframes td-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.trainer-designer-panel {
+  width: 100%;
+  max-width: 480px;
+  background: #0d1a2e;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 92dvh;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.td-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.td-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.td-close-btn {
+  background: rgba(255, 255, 255, 0.10);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.td-close-btn:hover { background: rgba(255, 255, 255, 0.20); }
+
+/* ── 3D Preview ──────────────────────────────────────────────────────── */
+.td-preview {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, #1a2a4a 0%, #2a3a5a 100%);
+  flex-shrink: 0;
+}
+
+/* ── Part selector tabs ──────────────────────────────────────────────── */
+.td-parts {
+  display: flex;
+  gap: 4px;
+  padding: 10px 12px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.td-parts::-webkit-scrollbar { display: none; }
+
+.td-part-btn {
+  flex: 1;
+  min-width: 54px;
+  padding: 7px 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 8px 8px 0 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.td-part-btn.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Colour swatches ────────────────────────────────────────────────── */
+.td-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 18px;
+  min-height: 80px;
+}
+
+.td-swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+  flex-shrink: 0;
+}
+.td-swatch:hover {
+  transform: scale(1.12);
+  border-color: rgba(255, 255, 255, 0.50);
+}
+.td-swatch.selected {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  transform: scale(1.15);
+}
+
+/* ── Done button ────────────────────────────────────────────────────── */
+.td-done-btn {
+  margin: 4px 18px 20px;
+  padding: 13px;
+  background: #e94560;
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.td-done-btn:hover  { background: #c73050; }
+.td-done-btn:active { transform: scale(0.97); }
